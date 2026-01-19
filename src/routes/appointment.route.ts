@@ -5,6 +5,7 @@ import { verifyRole } from '../middlewares/middleware.role.js';
 
 import { listUserAppointmentsController } from '../controllers/userController.js';
 import { listBarberAppointmentsController } from '../controllers/barberController.js';
+import { createAppointmentController } from '../controllers/createAppointmentController.js';
 
 export async function appointmentRoutes(app: FastifyInstance) {
   app.get(
@@ -22,4 +23,13 @@ export async function appointmentRoutes(app: FastifyInstance) {
     },
     listBarberAppointmentsController
   );
+
+  app.post(
+  '/appointments',
+  {
+    preHandler: [authenticate, verifyRole(['USER'])],
+    },
+    createAppointmentController
+  )
+
 }

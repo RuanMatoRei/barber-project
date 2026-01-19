@@ -71,7 +71,7 @@ export class CheckBarberAvaibikityService {
     let current = new Date(`${date}T${startTime}:00.000Z`);
     const end   = new Date(`${date}T${endTime}:00.000Z`);
 
-    while (current < end) {
+    while (current.getTime() + 40 * 60000 <= end.getTime()) {
       const slotEnd = new Date(current);
       slotEnd.setMinutes(slotEnd.getMinutes() + 40);
 
@@ -85,10 +85,7 @@ export class CheckBarberAvaibikityService {
 
       if (!hasAppointment && !isInBreak) {
         slots.push(
-          current.toLocaleTimeString("pt-BR", {
-            hour: "2-digit",
-            minute: "2-digit"
-          })
+          current.toISOString()
         );
       }
 

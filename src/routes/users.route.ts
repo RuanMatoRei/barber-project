@@ -6,8 +6,7 @@ import { loginController } from '../controllers/loginController.js';
 import { authenticate } from '../middlewares/authenticate.js';
 
 export async function usersRoutes(app: FastifyInstance) {
-    app.post('/users', createUserController);
+    app.post('/register', createUserController);
     app.get('/users', { preHandler: [authenticate] }, getUserController);
     app.post('/login', loginController);
-    
 }

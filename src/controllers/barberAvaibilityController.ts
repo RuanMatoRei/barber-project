@@ -1,3 +1,4 @@
+// backend/src/controllers/barberAvaibillityController.ts
 import { FastifyReply, FastifyRequest } from "fastify";
 import { CheckBarberAvaibikityService } from "../services/checkBarberAvaibilityService.js";
 

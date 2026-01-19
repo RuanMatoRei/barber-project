@@ -24,5 +24,6 @@ export class LoginService {
         const { password: _, ...userWithoutPassword } = user; 
         return userWithoutPassword;
 
+
     }
 }
