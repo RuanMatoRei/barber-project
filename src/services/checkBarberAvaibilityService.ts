@@ -5,7 +5,7 @@ interface CheckAvailibity {
   date: string; // YYYY-MM-DD
 }
 
-export class CheckBarberAvaibikityService {
+export class checkBarberAvaibilityService {
   async execute({ barberId, date }: CheckAvailibity) {
     const targetDate = new Date(`${date}T00:00:00.000Z`);
     const dayOfWeek = targetDate.getUTCDay(); // 0 (Sunday) to 6 (Saturday)

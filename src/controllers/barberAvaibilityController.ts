@@ -1,6 +1,6 @@
 // backend/src/controllers/barberAvaibillityController.ts
 import { FastifyReply, FastifyRequest } from "fastify";
-import { CheckBarberAvaibikityService } from "../services/checkBarberAvaibilityService.js";
+import { checkBarberAvaibilityService } from "../services/checkBarberAvaibilityService.js";
 
 export async function checkBarberAvaibilityController(
   request: FastifyRequest<{
@@ -12,7 +12,7 @@ export async function checkBarberAvaibilityController(
   const { id } = request.params;
   const { date } = request.query;
 
-  const service = new CheckBarberAvaibikityService();
+  const service = new checkBarberAvaibilityService();
 
   const availability = await service.execute({
     barberId: id,
