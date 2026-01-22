@@ -1,5 +1,6 @@
 // backend/src/services/CreateAppointmentService.ts
 import { prisma } from '../lib/prisma.js';
+import { Prisma } from '@prisma/client'
 import { AppError } from '../errors/appError.js';
 import { ValidateAppointmentTimeService } from './ValidateAppointmentTimeService.js';
 
@@ -39,18 +40,23 @@ export class CreateAppointmentService {
             throw new AppError('Schedule not available', 409);
         }
 
-        // Cria o agendamento
-        const appointment = await prisma.appointment.create({
-            data: {
+        try {
+            return await prisma.appointment.create({
+                data: {
                 userId,
                 barberId,
                 serviceId,
                 dateTime,
                 status: 'SCHEDULED'
+                }
+            });
+        } catch (err) {
+            if (err instanceof Prisma.PrismaClientKnownRequestError) {
+                if (err.code === 'P2002') {
+                throw new AppError('Schedule already taken', 409);
+                }
             }
-
-        })
-
-        return appointment;
+            throw err;
+        }
     }   
 }
