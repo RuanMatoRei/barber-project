@@ -25,7 +25,7 @@ export class CreateAppointmentService {
 
         // Verifica se o horário existe na disponibilidade
         const validateService = new ValidateAppointmentTimeService()
-        validateService.execute({ barberId, date, time })
+        await validateService.execute({ barberId, date, time })
 
         // Verifica se o horário já está agendado
         const existingAppointment = await prisma.appointment.findFirst({

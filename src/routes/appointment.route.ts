@@ -29,6 +29,10 @@ export async function appointmentRoutes(app: FastifyInstance) {
   '/appointments',
   {
     preHandler: [authenticate, verifyRole(['USER'])],
+    config: {
+      max: 10,
+      timeWindow: '1 minute'
+    }  
     },
     createAppointmentController
   )

@@ -8,5 +8,14 @@ import { authenticate } from '../middlewares/authenticate.js';
 export async function usersRoutes(app: FastifyInstance) {
     app.post('/register', createUserController);
     app.get('/users', { preHandler: [authenticate] }, getUserController);
-    app.post('/login', loginController);
+    app.post('/login',
+        {
+            config: {
+                rateLimit: {
+                    max: 5,
+                    timeWindow: '1 minute' 
+                }
+            }
+        },
+        loginController);
 }
