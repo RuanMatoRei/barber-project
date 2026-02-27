@@ -9,6 +9,7 @@ const createUserSchema = z.object({
     email: z.string().email(),
     password: z.string().min(8).max(16),
     phone: z.string().min(10).max(15),
+    role: z.enum(['USER', 'ADMIN', 'BARBER'])
 });
 
 export async function createUserController(

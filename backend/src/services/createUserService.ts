@@ -9,12 +9,14 @@ interface CreateUserRequest {
     email: string;
     password: string;
     phone: string;
+    role: 'USER' | 'ADMIN' | 'BARBER';
 }
 
 export class CreateUserService {
-    async execute({ name, email, password, phone }: CreateUserRequest) {
-        if (!name || !email || !password || !phone) return 'All fields are required';
-
+    async execute({ name, email, password, phone, role }: CreateUserRequest) {
+        if (!name || !email || !password || !phone || !role) {
+            throw new AppError('All fields are required', 400);
+        }
         const userExists = await prisma.user.findUnique({where: {email}});
 
         if (userExists) throw new AppError('User already exists', 409);
@@ -28,10 +30,24 @@ export class CreateUserService {
                 name,
                 email,
                 password: hashedPassword,
-                phone
+                phone,
+                role,
+                ...(role === 'BARBER' && {
+                    barberProfile: {
+                        create: {}
+                    },
+                    barber: {
+                        create: {
+                            name,
+                            active: true
+                        }
+                    }
+                })
+            },
+            include: {
+                barberProfile: true
             }
-        });
-        
+        })
         return user;
     }
 }

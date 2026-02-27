@@ -7,7 +7,7 @@ export class ListBarberService {
             where: {
                 active: true
             }
-        })
+        });
 
         return barbers;
     }

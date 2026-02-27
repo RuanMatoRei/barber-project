@@ -1,3 +1,4 @@
+// src/controllers/getUserController.ts
 import { FastifyRequest, FastifyReply } from 'fastify';
 import { GetUserService } from '../services/getUserService.js';
 
