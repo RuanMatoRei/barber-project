@@ -10,6 +10,7 @@ import { usersRoutes } from './routes/users.route.js'
 import { appointmentRoutes } from './routes/appointment.route.js'
 import { barberRoutes } from './routes/barber.route.js'
 import { AppError } from './errors/appError.js'
+import { availabilityRoutes } from './routes/availability.route.js'
 
 config()
 
@@ -49,3 +50,4 @@ app.register(healthRoutes)
 app.register(prismaRoutes)
 app.register(appointmentRoutes)
 app.register(barberRoutes)
+app.register(availabilityRoutes)
